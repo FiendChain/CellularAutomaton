@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Camera/ControllableCamera.hpp"
+#include "ResourceManager/ResourceManager.hpp"
+#include "Utility/FpsCounter/FpsCounter.hpp"
 #include "CellularAutomaton.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -15,9 +17,9 @@ class App
         bool m_Paused;
         sf::RenderWindow m_Window;
         ControllableCamera m_Camera;
-        sf::Clock m_Clock;
+        ResourceManager m_ResourceManager;
+        FpsCounter m_FpsCounter;
         std::unique_ptr<cellular::CellularAutomaton> m_CellularAutomaton; 
-        std::default_random_engine m_RngEngine;
     public:
         App(unsigned int width, unsigned int height, unsigned int fps, const std::string& title = "Cellular Automaton");
         void Run();

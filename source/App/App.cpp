@@ -1,6 +1,5 @@
 #include "App.hpp" 
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 App::App(unsigned int width, unsigned int height, unsigned int fps, const std::string& title) 
     : m_Width(width), m_Height(height),
@@ -11,6 +10,7 @@ App::App(unsigned int width, unsigned int height, unsigned int fps, const std::s
       m_Paused(false)
 { 
     m_Window.setFramerateLimit(fps);
+    m_FpsCounter.SetFont(m_ResourceManager.GetFont());
 }
 
 void App::Run()
@@ -18,8 +18,7 @@ void App::Run()
     while (m_Window.isOpen())
     {
         PollEvents();
-        if (!m_Paused && m_CellularAutomaton)
-            Update();
+        Update();
         Render();
     }
 }
@@ -57,7 +56,6 @@ void App::SetFrameRate(unsigned int fps)
     if (fps < 0 || fps > 1000) return;
     m_Fps = fps;
     m_Window.setFramerateLimit(fps);
-    std::cout << fps << std::endl;
 }
 
 void App::PollKeyPresses(sf::Keyboard::Key& key)
@@ -90,12 +88,14 @@ void App::Render()
 
     m_Window.clear(sf::Color::Black);
     m_Window.draw(m_Camera);
+    m_Window.draw(m_FpsCounter);
     m_Window.display();
 }
 
 void App::Update()
 {
-    if (m_CellularAutomaton)
+    m_FpsCounter.Update(m_ResourceManager.GetClock());
+    if (!m_Paused && m_CellularAutomaton)
         m_CellularAutomaton->Update();
 }
 
