@@ -1,17 +1,21 @@
 project("Cellular Automaton")
 
 set(ROOT_DIR .)
+set(CELLULAR_DIR ${ROOT_DIR}/CellularAutomaton)
 set(GOL_DIR ${ROOT_DIR}/GOL)
 set(LANGTON_DIR ${ROOT_DIR}/Langton)
 set(SFML_LIB sfml-graphics sfml-audio sfml-window sfml-system)
 
+include_directories(${CELLULAR_DIR} ${GOL_DIR} ${LANGTON_DIR})
+
 set(CELLULAR_FILES
-    ${ROOT_DIR}/CellularAutomaton.cpp)
+    ${CELLULAR_DIR}/CellularAutomaton.cpp
+    ${CELLULAR_DIR}/CellularAutomatonGrid.cpp)
 
 add_library(cellular ${CELLULAR_FILES})
 target_link_libraries(cellular ${SFML_LIB})
 target_compile_options(cellular PUBLIC -std=c++17 -O3)
-target_include_directories(cellular PRIVATE ${ROOT_DIR})
+target_include_directories(cellular PUBLIC ${CELLULAR_DIR})
 
 set(GOL_FILES 
     ${GOL_DIR}/GOL.cpp
