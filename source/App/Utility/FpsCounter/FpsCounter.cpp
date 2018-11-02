@@ -3,8 +3,10 @@
 
 FpsCounter::FpsCounter()
 {
-    m_Text.setColor(sf::Color::White);
-    m_Text.setCharacterSize(12.0f);
+    m_Text.setFillColor(sf::Color::White);
+    m_Text.setOutlineColor(sf::Color::Black);
+    m_Text.setOutlineThickness(2.0f);
+    m_Text.setCharacterSize(20.0f);
     m_Text.setPosition(10, 10);
 }
 
